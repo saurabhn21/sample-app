@@ -62,8 +62,21 @@ jobs:
 
     # Autobuild attempts to build any compiled languages (C/C++, C#, Go, Java, or Swift).
     # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v3
+#    - name: Autobuild
+#      uses: github/codeql-action/autobuild@v3
+
+    - name: Set up JDK 8
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'adopt'
+        java-version: 11
+        cache: 'gradle'
+        
+    - name: Build with Gradle
+      run: |
+        chmod +x gradlew
+        ./gradlew clean build -x test
+      
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
